@@ -122,6 +122,19 @@ class Client
     }
 
     /**
+     * @return int
+     */
+    public function getTotalInbox(): int
+    {
+        $endpointInfo = RequestHandler::API_ENDPOINTS['listInbox'];
+
+        $request = $this->requestHandler->request($endpointInfo['method'], str_replace(':id', 1, $endpointInfo['path']));
+
+        return $request['result']['pageInfo']['total'];
+    }
+
+
+    /**
      * @param int $id
      *
      * @return array
