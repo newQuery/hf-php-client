@@ -1,0 +1,20 @@
+{
+    "name": "newquery/hf-php-client",
+    "description": "PHP Client for hackforums.net API",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "HFClient": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "newQuery",
+            "email": "wilmshorst.tom@gmail.com"
+        }
+    ]
+}
