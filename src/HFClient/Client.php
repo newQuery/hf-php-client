@@ -34,7 +34,7 @@ class Client
      */
     public function getUsers(array $ids): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['userInfo'];
+        $endpointInfo = RequestHandler::API_ENDPOINTS['multipleUserInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':ids', implode(',', $ids), $endpointInfo['path']));
     }
@@ -92,7 +92,7 @@ class Client
      */
     public function getForum(int $id): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['threadInfo'];
+        $endpointInfo = RequestHandler::API_ENDPOINTS['formInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $id, $endpointInfo['path']));
     }
