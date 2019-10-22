@@ -198,7 +198,7 @@ $thread = $client->getThread(6018226);
 
 Output
 
-```php
+```
 array(3) {
   ["success"]=>
   bool(true)
