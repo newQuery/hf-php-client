@@ -9,53 +9,15 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class RequestHandler
 {
-    private const API_URL = "https://hackforums.net/api/v1";
-
-    public const API_ENDPOINTS = [
-        "userInfo" => [
-            "method"    => "GET",
-            "path"      => "/user/:id"
-        ],
-        "multipleUserInfo" => [
-            "method"    => "GET",
-            "path"      => "/users/:ids"
-        ],
-        "categoryInfo" => [
-            "method"    => "GET",
-            "path"      => "/category/:id"
-        ],
-        "postInfo" => [
-            "method"    => "GET",
-            "path"      => "/post/:id"
-        ],
-        "formInfo" => [
-            "method"    => "GET",
-            "path"      => "/forum/:id"
-        ],
-        "threadInfo" => [
-            "method"    => "GET",
-            "path"      => "/thread/:id"
-        ],
-        "privateMessage" => [
-            "method"    => "GET",
-            "path"      => "/post/:id"
-        ],
-        "listInbox" => [
-            "method"    => "GET",
-            "path"      => "/pmbox/:id"
-        ],
-        "groupInfo" => [
-            "method"    => "GET",
-            "path"      => "/group/:id"
-        ]
-    ];
-
     /** @var string */
     private $apiKey;
 
     /** @var GuzzleClient */
     private $guzzle;
 
+    /**
+     * @param string $apiKey
+     */
     public function __construct(string $apiKey)
     {
         $this->apiKey = $apiKey;
@@ -83,7 +45,7 @@ class RequestHandler
             ];
 
             $res = $this->guzzle->request(strtoupper($method),
-                sprintf('%s/%s', self::API_URL, $endpoint),
+                sprintf('%s/%s', HackForumsInterface::API_URL, $endpoint),
                 $guzzleOptions
             );
 

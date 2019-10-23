@@ -2,7 +2,7 @@
 
 namespace HFClient;
 
-class Client
+class Client implements HackForumsInterface
 {
     /** @var RequestHandler */
     private $requestHandler;
@@ -22,7 +22,7 @@ class Client
      */
     public function getUser(int $id): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['userInfo'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['userInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $id, $endpointInfo['path']));
     }
@@ -34,7 +34,7 @@ class Client
      */
     public function getUsers(array $ids): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['multipleUserInfo'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['multipleUserInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':ids', implode(',', $ids), $endpointInfo['path']));
     }
@@ -46,7 +46,7 @@ class Client
      */
     public function getCategory(int $id): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['categoryInfo'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['categoryInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $id, $endpointInfo['path']));
     }
@@ -58,7 +58,7 @@ class Client
      */
     public function getPost(int $id): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['postInfo'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['postInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $id, $endpointInfo['path']));
     }
@@ -72,7 +72,7 @@ class Client
      */
     public function getThread(int $id, bool $raw = false, int $pageNumber = null): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['threadInfo'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['threadInfo'];
 
         if(false !== $raw && null !== $pageNumber) {
             $endpoint = sprintf('%s?raw&page=%d', str_replace(':id', $id, $endpointInfo['path']), $pageNumber);
@@ -92,7 +92,7 @@ class Client
      */
     public function getForum(int $id): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['formInfo'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['formInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $id, $endpointInfo['path']));
     }
@@ -104,7 +104,7 @@ class Client
      */
     public function getPrivateMessage(int $id): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['privateMessage'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['privateMessage'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $id, $endpointInfo['path']));
     }
@@ -116,23 +116,10 @@ class Client
      */
     public function getInbox(int $pageNumber = 1): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['listInbox'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['listInbox'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $pageNumber, $endpointInfo['path']));
     }
-
-    /**
-     * @return int
-     */
-    public function getTotalInbox(): int
-    {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['listInbox'];
-
-        $request = $this->requestHandler->request($endpointInfo['method'], str_replace(':id', 1, $endpointInfo['path']));
-
-        return $request['result']['pageInfo']['total'];
-    }
-
 
     /**
      * @param int $id
@@ -141,8 +128,20 @@ class Client
      */
     public function getGroup(int $id): array
     {
-        $endpointInfo = RequestHandler::API_ENDPOINTS['groupInfo'];
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['groupInfo'];
 
         return $this->requestHandler->request($endpointInfo['method'], str_replace(':id', $id, $endpointInfo['path']));
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotalInbox(): int
+    {
+        $endpointInfo = HackForumsInterface::API_ENDPOINTS['listInbox'];
+
+        $request = $this->requestHandler->request($endpointInfo['method'], str_replace(':id', 1, $endpointInfo['path']));
+
+        return $request['result']['pageInfo']['total'];
     }
 }
