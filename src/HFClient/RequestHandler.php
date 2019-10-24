@@ -3,7 +3,6 @@
 
 namespace HFClient;
 
-
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -44,7 +43,8 @@ class RequestHandler
                 ]
             ];
 
-            $res = $this->guzzle->request(strtoupper($method),
+            $res = $this->guzzle->request(
+                strtoupper($method),
                 sprintf('%s/%s', HackForumsInterface::API_URL, $endpoint),
                 $guzzleOptions
             );
