@@ -74,9 +74,9 @@ class Client implements HackForumsInterface
     {
         $endpointInfo = HackForumsInterface::API_ENDPOINTS['threadInfo'];
 
-        if(false !== $raw && null !== $pageNumber) {
+        if (false !== $raw && null !== $pageNumber) {
             $endpoint = sprintf('%s?raw&page=%d', str_replace(':id', $id, $endpointInfo['path']), $pageNumber);
-        } elseif(false !== $raw && null === $pageNumber) {
+        } elseif (false !== $raw && null === $pageNumber) {
             $endpoint = sprintf('%s?raw', str_replace(':id', $id, $endpointInfo['path']));
         } else {
             $endpoint = str_replace(':id', $id, $endpointInfo['path']);
